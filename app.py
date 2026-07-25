@@ -60,7 +60,7 @@ if uploaded_file is not None:
 col1.metric("📄 Rows", data.shape[0])
 col2.metric("📋 Columns", data.shape[1])
 col3.metric("🎯 Clusters", clusters)
-    st.subheader("Elbow Method")
+st.subheader("Elbow Method")
 
     X = data[[
         "traffic_volume",
