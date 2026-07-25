@@ -30,8 +30,10 @@ st.sidebar.write("""
 st.title("🚦 Traffic Pattern Analysis using K-Means")
 
 uploaded_file = st.file_uploader(
-    "traffic_pattern(sample).csv",
-    type=["csv"]
+    "📂 Upload Traffic Dataset (.csv)",
+    type=["csv"],
+    help="Upload a traffic dataset in CSV format to perform clustering."
+)
 )
 
 if uploaded_file is not None:
