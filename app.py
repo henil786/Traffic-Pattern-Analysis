@@ -34,7 +34,6 @@ uploaded_file = st.file_uploader(
     type=["csv"],
     help="Upload a traffic dataset in CSV format to perform clustering."
 )
-)
 
 if uploaded_file is not None:
 
