@@ -51,7 +51,7 @@ if uploaded_file is not None:
     data["month"] = data["date_time"].dt.month
 
     st.subheader("Dataset Preview")
-        with st.expander("📋 View Dataset Preview"):
+    st.expander("📋 View Dataset Preview"):
     st.dataframe(data.head(10), use_container_width=True)
     st.subheader("Dataset Information")
 
@@ -87,7 +87,7 @@ col3.metric("🎯 Clusters", clusters)
     ax.plot(range(1, 11), wcss, marker="o")
     ax.set_xlabel("Number of Clusters")
     ax.set_ylabel("WCSS")
-    ax.set_title("Elbow Method")
+    ax.set_title("Elbow Method")    
 
    st.pyplot(fig, use_container_width=True)
     st.subheader("Choose Number of Clusters")
