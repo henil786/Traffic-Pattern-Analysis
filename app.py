@@ -51,7 +51,7 @@ if uploaded_file is not None:
     data["month"] = data["date_time"].dt.month
 
     st.subheader("Dataset Preview")
-    with st.expander("📋 View Dataset Preview"):
+        with st.expander("📋 View Dataset Preview"):
     st.dataframe(data.head(10), use_container_width=True)
     st.subheader("Dataset Information")
 
