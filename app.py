@@ -51,16 +51,15 @@ if uploaded_file is not None:
     data["month"] = data["date_time"].dt.month
 
     st.subheader("Dataset Preview")
-    st.dataframe(data.head())
-
+    with st.expander("📋 View Dataset Preview"):
+    st.dataframe(data.head(10), use_container_width=True)
     st.subheader("Dataset Information")
 
     col1, col2, col3 = st.columns(3)
 
-    col1.metric("Rows", data.shape[0])
-    col2.metric("Columns", data.shape[1])
-    col3.metric("Clusters", 3)
-
+col1.metric("📄 Rows", data.shape[0])
+col2.metric("📋 Columns", data.shape[1])
+col3.metric("🎯 Clusters", clusters)
     st.subheader("Elbow Method")
 
     X = data[[
@@ -90,7 +89,7 @@ if uploaded_file is not None:
     ax.set_ylabel("WCSS")
     ax.set_title("Elbow Method")
 
-    st.pyplot(fig)
+   st.pyplot(fig, use_container_width=True)
     st.subheader("Choose Number of Clusters")
 
     clusters = st.slider(
@@ -109,6 +108,16 @@ if uploaded_file is not None:
     st.subheader("Traffic Cluster Visualization")
 
     fig2, ax2 = plt.subplots(figsize=(8, 6))
+    st.subheader("📌 Cluster Insights")
+
+    for cluster in sorted(data["Cluster"].unique()):
+    cluster_data = data[data["Cluster"] == cluster]
+
+    st.write(f"### Cluster {cluster}")
+    st.write(f"- Records: {len(cluster_data)}")
+    st.write(f"- Average Traffic: {cluster_data['traffic_volume'].mean():.2f}")
+    st.write(f"- Average Temperature: {cluster_data['temperature'].mean():.2f} °C")
+    st.write(f"- Average Clouds: {cluster_data['clouds_all'].mean():.2f}%")
 
     scatter = ax2.scatter(
         data["traffic_volume"],
@@ -123,7 +132,7 @@ if uploaded_file is not None:
     ax2.set_ylabel("Temperature")
     ax2.set_title("Traffic Clusters")
 
-    st.pyplot(fig2)
+    st.pyplot(fig2, use_container_width=True)
     st.subheader("Cluster Statistics")
 
     cluster_summary = data.groupby("Cluster").mean(numeric_only=True)
@@ -139,7 +148,7 @@ if uploaded_file is not None:
     ax3.set_ylabel("Frequency")
     ax3.set_title("Traffic Volume Distribution")
 
-    st.pyplot(fig3)
+   st.pyplot(fig3, use_container_width=True)
     st.subheader("Average Traffic by Hour")
 
     hourly = data.groupby("hour")["traffic_volume"].mean()
@@ -167,14 +176,13 @@ if uploaded_file is not None:
 
     st.header("About This Project")
 
-    st.write("""
-    This application analyzes traffic patterns using the K-Means clustering algorithm.
+   st.markdown("""
+This dashboard analyzes traffic patterns using the **K-Means Clustering** algorithm.
 
-    Workflow:
-    1. Upload traffic dataset.
-    2. Perform feature engineering.
-    3. Standardize features.
-    4. Determine optimal clusters using the Elbow Method.
-    5. Cluster the traffic data.
-    6. Visualize and analyze the results.
-    """)
+### Features
+- 📂 Upload your own CSV dataset
+- 📊 Visualize the Elbow Method
+- 🎯 Select the number of clusters
+- 📈 Explore traffic patterns
+- 📥 Download clustered results
+""")
