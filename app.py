@@ -62,7 +62,7 @@ col2.metric("📋 Columns", data.shape[1])
 col3.metric("🎯 Clusters", clusters)
 st.subheader("Elbow Method")
 
-    X = data[[
+X = data[[
         "traffic_volume",
         "temperature",
         "rain_1h",
